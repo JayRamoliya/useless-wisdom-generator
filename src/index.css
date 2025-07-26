@@ -8,26 +8,35 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    --background: 285 100% 97%;
+    --foreground: 285 15% 15%;
 
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 285 15% 15%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover-foreground: 285 15% 15%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 285 95% 60%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 165 95% 60%;
+    --secondary-foreground: 0 0% 100%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 285 20% 95%;
+    --muted-foreground: 285 15% 50%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 45 95% 60%;
+    --accent-foreground: 285 15% 15%;
+
+    /* Fun gradients for the app */
+    --gradient-fun: linear-gradient(135deg, hsl(285 95% 60%), hsl(165 95% 60%), hsl(45 95% 60%));
+    --gradient-bg: linear-gradient(180deg, hsl(285 100% 97%), hsl(285 50% 95%));
+    
+    /* Animation variables */
+    --bounce-animation: bounce 0.6s ease-in-out;
+    --wiggle-animation: wiggle 0.5s ease-in-out;
+    --glow-shadow: 0 0 20px hsl(285 95% 60% / 0.5);
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
@@ -101,5 +110,71 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
+    background: var(--gradient-bg);
+    min-height: 100vh;
+  }
+}
+
+@layer components {
+  @keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+      transform: translateY(0);
+    }
+    40% {
+      transform: translateY(-10px);
+    }
+    60% {
+      transform: translateY(-5px);
+    }
+  }
+
+  @keyframes wiggle {
+    0% { transform: rotate(0deg); }
+    25% { transform: rotate(-3deg); }
+    50% { transform: rotate(3deg); }
+    75% { transform: rotate(-3deg); }
+    100% { transform: rotate(0deg); }
+  }
+
+  @keyframes fadeInBounce {
+    0% { 
+      opacity: 0; 
+      transform: scale(0.3) translateY(20px); 
+    }
+    50% { 
+      opacity: 0.8; 
+      transform: scale(1.05) translateY(-5px); 
+    }
+    100% { 
+      opacity: 1; 
+      transform: scale(1) translateY(0); 
+    }
+  }
+
+  .animate-bounce-custom {
+    animation: var(--bounce-animation);
+  }
+
+  .animate-wiggle {
+    animation: var(--wiggle-animation);
+  }
+
+  .animate-fade-in-bounce {
+    animation: fadeInBounce 0.6s ease-out;
+  }
+
+  .gradient-fun {
+    background: var(--gradient-fun);
+  }
+
+  .text-gradient {
+    background: var(--gradient-fun);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .shadow-glow {
+    box-shadow: var(--glow-shadow);
   }
 }
